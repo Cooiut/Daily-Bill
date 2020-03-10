@@ -5,7 +5,7 @@
     <string name="cost">Cost</string>
     <string name="description">Description</string>
 
-    <string-array name="spinner">
+    <string-array name="spending">
         <item>Food</item>
         <item>Transportation</item>
         <item>Housing</item>
@@ -15,6 +15,12 @@
         <item>Saving, Investing, &amp; Debt Payments</item>
         <item>Personal Spending</item>
         <item>Recreation &amp; Entertainment</item>
+        <item>Miscellaneous</item>
+    </string-array>
+
+    <string-array name="income">
+        <item>Salary</item>
+        <item>Investment</item>
         <item>Miscellaneous</item>
     </string-array>
 </resources>

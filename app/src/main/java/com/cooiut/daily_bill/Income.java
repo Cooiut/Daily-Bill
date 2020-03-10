@@ -1,8 +1,5 @@
 package com.cooiut.daily_bill;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +7,8 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
@@ -34,9 +33,7 @@ public class Income extends AppCompatActivity {
 
     private DatabaseReference myRefIncome;
 
-    private String[] cateList = {"Food", "Transportation", "Housing", "Utilities", "Insurance",
-            "Medical & Healthcare", "Saving, Investing, & Debt Payments", "Personal Spending",
-            "Recreation & Entertainment", "Miscellaneous"};
+    private String[] cateList = {"Salary", "Investment", "Miscellaneous"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +81,7 @@ public class Income extends AppCompatActivity {
         editTextDescription = findViewById(R.id.editTextDescription);
 
         String item, key, description;
-        double quantity, cost;
+        double quantity;
         int year, month, day;
 
         item = editTextName.getText().toString();
@@ -93,10 +90,6 @@ public class Income extends AppCompatActivity {
             quantity = 0;
         else
             quantity = Double.parseDouble(editTextQuantity.getText().toString());
-        if (editTextCost.getText().toString().matches(""))
-            cost = 0;
-        else
-            cost = Double.parseDouble(editTextCost.getText().toString());
 
         datePicker = findViewById(R.id.datePicker1);
         year = datePicker.getYear();
@@ -104,7 +97,7 @@ public class Income extends AppCompatActivity {
         day = datePicker.getDayOfMonth();
 
         key = myRefIncome.push().getKey();
-        Bills bills = new Bills(key, category, item, quantity, cost, description, year, month, day);
+        Bills bills = new Bills(key, category, item, quantity, description, year, month, day);
         income.add(bills);
         myRefIncome.child(key).setValue(bills);
     }
