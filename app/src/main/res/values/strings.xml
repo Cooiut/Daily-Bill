@@ -1,9 +1,22 @@
+<!--
+  ~ Copyright (c) 2020. Cooiut & Jason
+  ~ All right reserved.
+  ~ This code is for UCI I&CS 45J project use only,
+  ~ Please do not copy or duplicate.
+  -->
+
 <resources>
     <string name="app_name">Daily-Bill</string>
     <string name="quantity">Quantity</string>
     <string name="name">Name</string>
     <string name="cost">Cost</string>
     <string name="description">Description</string>
+    <string name="close_app">Close App</string>
+    <string name="show_bill_history">Show Bill History</string>
+    <string name="add_new_income">Add New Income</string>
+    <string name="add_new_spend">Add New Spend</string>
+    <string name="spend">Spend</string>
+    <string name="income">Income</string>
 
     <string-array name="spending">
         <item>Food</item>
@@ -22,5 +35,17 @@
         <item>Salary</item>
         <item>Investment</item>
         <item>Miscellaneous</item>
+    </string-array>
+
+    <string-array name="sequence">
+        <item>Sort by...</item>
+        <item>Date</item>
+        <item>Amount</item>
+        <item>Name</item>
+    </string-array>
+
+    <string-array name="sequence_sort">
+        <item>Decrease Order</item>
+        <item>Increase Order</item>
     </string-array>
 </resources>

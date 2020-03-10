@@ -1,13 +1,20 @@
-package com.cooiut.daily_bill;
+/*
+ * Copyright (c) 2020. Cooiut & Jason
+ * All right reserved.
+ * This code is for UCI I&CS 45J project use only,
+ * Please do not copy or duplicate.
+ */
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+package com.cooiut.daily_bill;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
@@ -109,8 +116,10 @@ public class MainActivity extends AppCompatActivity {
                 Bundle bundle = new Bundle();
                 bundle.putParcelableArrayList("income", income);
                 bundle.putParcelableArrayList("spend", spend);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         });
     }
+
 }

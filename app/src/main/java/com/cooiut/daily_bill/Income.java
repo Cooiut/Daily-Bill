@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020. Cooiut & Jason
+ * All right reserved.
+ * This code is for UCI I&CS 45J project use only,
+ * Please do not copy or duplicate.
+ */
+
 package com.cooiut.daily_bill;
 
 import android.os.Bundle;
@@ -54,7 +61,6 @@ public class Income extends AppCompatActivity {
                 finish();
             }
         });
-
 
 
         spinner = findViewById(R.id.spinnerCategory);

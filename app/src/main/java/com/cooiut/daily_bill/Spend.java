@@ -1,7 +1,11 @@
-package com.cooiut.daily_bill;
+/*
+ * Copyright (c) 2020. Cooiut & Jason
+ * All right reserved.
+ * This code is for UCI I&CS 45J project use only,
+ * Please do not copy or duplicate.
+ */
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+package com.cooiut.daily_bill;
 
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +14,8 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
@@ -20,7 +26,7 @@ import java.util.List;
 
 public class Spend extends AppCompatActivity {
 
-    private ArrayList<Bills> income;
+    private ArrayList<Bills> spend;
     private Spinner spinner;
     private List<String> stringList;
     private ArrayAdapter<String> arrayAdapter;
@@ -32,7 +38,7 @@ public class Spend extends AppCompatActivity {
     private EditText editTextQuantity;
     private EditText editTextDescription;
 
-    private DatabaseReference myRefIncome;
+    private DatabaseReference myRefSpend;
 
     private String[] cateList = {"Food", "Transportation", "Housing", "Utilities", "Insurance",
             "Medical & Healthcare", "Saving, Investing, & Debt Payments", "Personal Spending",
@@ -45,9 +51,9 @@ public class Spend extends AppCompatActivity {
         setTitle("Income");
 
         Bundle extras = getIntent().getExtras();
-        income = extras.getParcelableArrayList("spend");
+        spend = extras.getParcelableArrayList("spend");
 
-        myRefIncome = FirebaseDatabase.getInstance().getReference("spend");
+        myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -104,9 +110,9 @@ public class Spend extends AppCompatActivity {
         month = datePicker.getMonth();
         day = datePicker.getDayOfMonth();
 
-        key = myRefIncome.push().getKey();
+        key = myRefSpend.push().getKey();
         Bills bills = new Bills(key, category, item, quantity, cost, description, year, month, day);
-        income.add(bills);
-        myRefIncome.child(key).setValue(bills);
+        spend.add(bills);
+        myRefSpend.child(key).setValue(bills);
     }
 }
