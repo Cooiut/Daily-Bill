@@ -79,8 +79,10 @@ public class BillViewAdapter extends RecyclerView.Adapter {
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: 3/10/2020
-                }
+                    int position = getAdapterPosition();
+                    Bills b = (Bills) list.get(position);
+                    // TODO: 3/10/2020  
+                }   
             });
 
             itemView.setOnClickListener(new View.OnClickListener() {
