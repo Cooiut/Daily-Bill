@@ -60,8 +60,8 @@ public class BillHistory extends AppCompatActivity {
 
         adapter = new BillViewAdapter(BillHistory.this, spend, "spend");
         recyclerView.setAdapter(adapter);
-//        itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter));
-//        itemTouchHelper.attachToRecyclerView(recyclerView);
+        itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter, "spend"));
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         spinner_sort = findViewById(R.id.spinner_sort);
         spinner_sequence = findViewById(R.id.spinner_sequence);
@@ -186,10 +186,11 @@ public class BillHistory extends AppCompatActivity {
                 }
                 if (selectedSort == 0)
                     Collections.reverse(spend);
+                itemTouchHelper.attachToRecyclerView(null);
                 adapter = new BillViewAdapter(BillHistory.this, spend, "spend");
                 recyclerView.setAdapter(adapter);
-//                itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter));
-//                itemTouchHelper.attachToRecyclerView(recyclerView);
+                itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter, "spend"));
+                itemTouchHelper.attachToRecyclerView(recyclerView);
                 break;
             case 1:
                 switch (selectedSec) {
@@ -205,13 +206,12 @@ public class BillHistory extends AppCompatActivity {
                 }
                 if (selectedSort == 0)
                     Collections.reverse(income);
+                itemTouchHelper.attachToRecyclerView(null);
                 adapter = new BillViewAdapter(BillHistory.this, income, "income");
                 recyclerView.setAdapter(adapter);
-//                itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter));
-//                itemTouchHelper.attachToRecyclerView(recyclerView);
+                itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter, "income"));
+                itemTouchHelper.attachToRecyclerView(recyclerView);
                 break;
         }
-
     }
-
 }

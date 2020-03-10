@@ -36,7 +36,10 @@ public class BillViewAdapter extends RecyclerView.Adapter {
     }
 
     public void deleteItem(int position) {
-        // TODO: 3/10/2020
+        Bills b = (Bills) list.get(position);
+        myRef.child(b.getKey()).removeValue();
+        list.remove(position);
+        notifyDataSetChanged();
     }
 
     @NonNull

@@ -19,11 +19,11 @@ public class SwipeToDelete extends ItemTouchHelper.SimpleCallback {
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
-    public SwipeToDelete(BillViewAdapter adapter) {
+    public SwipeToDelete(BillViewAdapter adapter, String bill) {
         super(0, ItemTouchHelper.LEFT);
         this.adapter = adapter;
         database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("item");
+        myRef = database.getReference(bill);
     }
 
     @Override
