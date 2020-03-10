@@ -18,6 +18,7 @@
     <string name="spend">Spend</string>
     <string name="income">Income</string>
     <string name="edit">Edit</string>
+    <string name="ok">OK</string>
 
     <string-array name="spending">
         <item>Food</item>

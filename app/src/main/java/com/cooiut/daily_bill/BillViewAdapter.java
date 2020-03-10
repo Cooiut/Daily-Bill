@@ -7,7 +7,9 @@
 
 package com.cooiut.daily_bill;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,19 +26,17 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 
 public class BillViewAdapter extends RecyclerView.Adapter {
-    private String bill;
     private ArrayList list;
     private Context context;
     private DatabaseReference myRef;
 
-    public BillViewAdapter(Context context, ArrayList list, String bill) {
+    BillViewAdapter(Context context, ArrayList list, String bill) {
         this.context = context;
-        this.bill = bill;
         this.list = list;
         myRef = FirebaseDatabase.getInstance().getReference(bill);
     }
 
-    public void deleteItem(int position) {
+    void deleteItem(int position) {
         Bills b = (Bills) list.get(position);
         myRef.child(b.getKey()).removeValue();
         list.remove(position);
@@ -50,11 +50,13 @@ public class BillViewAdapter extends RecyclerView.Adapter {
         return new BillViewHolder(v);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ((BillViewHolder) holder).date.setText("" + ((Bills) list.get(position)).getMonth() + "/" + ((Bills) list.get(position)).getDay() + "/" + ((Bills) list.get(position)).getYear());
         ((BillViewHolder) holder).name.setText(((Bills) list.get(position)).getItem());
-        ((BillViewHolder) holder).cost.setText("" + (((Bills) list.get(position)).getCost() * ((Bills) list.get(position)).getQuantity()));
+        ((BillViewHolder) holder).cost.setText("$" + (((Bills) list.get(position)).getCost() * ((Bills) list.get(position)).getQuantity()));
+
     }
 
     @Override
@@ -64,10 +66,10 @@ public class BillViewAdapter extends RecyclerView.Adapter {
 
 
     public class BillViewHolder extends RecyclerView.ViewHolder {
-        public TextView date, name, cost;
-        public Button edit;
+        TextView date, name, cost;
+        Button edit;
 
-        public BillViewHolder(@NonNull View itemView) {
+        BillViewHolder(@NonNull View itemView) {
             super(itemView);
             date = itemView.findViewById(R.id.textViewNumber);
             name = itemView.findViewById(R.id.textViewItem);
@@ -84,10 +86,19 @@ public class BillViewAdapter extends RecyclerView.Adapter {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    // TODO: 3/10/2020
-                    // getAdapterPosition()
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("Choose a category to add a bill");
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Detail");
+                    int position = getAdapterPosition();
+                    Bills b = (Bills) list.get(position);
+
+                    builder.setMessage(b.toString());
+                    builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }

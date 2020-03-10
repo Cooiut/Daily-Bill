@@ -10,6 +10,8 @@ package com.cooiut.daily_bill;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.annotation.NonNull;
+
 public class Bills implements Parcelable {
     private String item, category, key, description;
     private double quantity, cost;
@@ -33,7 +35,7 @@ public class Bills implements Parcelable {
 
     Bills(String key, String category, String item, double quantity, double cost,
           String description, int year, int month, int day) {
-            this.key = key;
+        this.key = key;
         this.category = category;
         this.item = item;
         this.quantity = quantity;
@@ -68,7 +70,7 @@ public class Bills implements Parcelable {
         }
     };
 
-    public String getKey() {
+    String getKey() {
         return key;
     }
 
@@ -136,7 +138,7 @@ public class Bills implements Parcelable {
     }
 
 
-    public int getYear() {
+    int getYear() {
         return year;
     }
 
@@ -144,7 +146,7 @@ public class Bills implements Parcelable {
         this.year = year;
     }
 
-    public int getMonth() {
+    int getMonth() {
         return month;
     }
 
@@ -152,11 +154,20 @@ public class Bills implements Parcelable {
         this.month = month;
     }
 
-    public int getDay() {
+    int getDay() {
         return day;
     }
 
     public void setDay(int day) {
         this.day = day;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Item: " + item + " (Category: " + category + ")" + "\n\n" +
+                "Cost: $" + cost + ", Quantity: " + quantity + "\n\n" +
+                "Description: " + description + "\n\n" +
+                "Date: " + day + "/" + month + "/" + year;
     }
 }

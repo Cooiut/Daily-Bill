@@ -148,7 +148,7 @@ public class BillHistory extends AppCompatActivity {
             }
         };
 
-        Comparator<Bills> amountCompartor = new Comparator<Bills>() {
+        Comparator<Bills> amountComparator = new Comparator<Bills>() {
             @Override
             public int compare(Bills o1, Bills o2) {
                 double amount1 = o1.getCost() * o1.getQuantity();
@@ -161,7 +161,7 @@ public class BillHistory extends AppCompatActivity {
             }
         };
 
-        Comparator<Bills> nameCompartor = new Comparator<Bills>() {
+        Comparator<Bills> nameComparator = new Comparator<Bills>() {
             @Override
             public int compare(Bills o1, Bills o2) {
                 return o1.getItem().compareToIgnoreCase(o2.getItem());
@@ -175,10 +175,10 @@ public class BillHistory extends AppCompatActivity {
                         Collections.sort(spend, dateComparator);
                         break;
                     case 2:
-                        Collections.sort(spend, amountCompartor);
+                        Collections.sort(spend, amountComparator);
                         break;
                     case 3:
-                        Collections.sort(spend, nameCompartor);
+                        Collections.sort(spend, nameComparator);
                         break;
                 }
                 if (selectedSort == 0)
@@ -195,10 +195,10 @@ public class BillHistory extends AppCompatActivity {
                         Collections.sort(income, dateComparator);
                         break;
                     case 2:
-                        Collections.sort(income, amountCompartor);
+                        Collections.sort(income, amountComparator);
                         break;
                     case 3:
-                        Collections.sort(income, nameCompartor);
+                        Collections.sort(income, nameComparator);
                         break;
                 }
                 if (selectedSort == 0)
