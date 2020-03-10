@@ -35,10 +35,6 @@ public class BillViewAdapter extends RecyclerView.Adapter {
         myRef = FirebaseDatabase.getInstance().getReference(bill);
     }
 
-    public void add(Bills b) {
-        // TODO: 3/10/2020
-    }
-
     public void deleteItem(int position) {
         // TODO: 3/10/2020
     }
@@ -54,7 +50,7 @@ public class BillViewAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         ((BillViewHolder) holder).date.setText("" + ((Bills) list.get(position)).getMonth() + "/" + ((Bills) list.get(position)).getDay() + "/" + ((Bills) list.get(position)).getYear());
         ((BillViewHolder) holder).name.setText(((Bills) list.get(position)).getItem());
-        ((BillViewHolder) holder).cost.setText("" + ((Bills) list.get(position)).getCost());
+        ((BillViewHolder) holder).cost.setText("" + (((Bills) list.get(position)).getCost() * ((Bills) list.get(position)).getQuantity()));
     }
 
     @Override

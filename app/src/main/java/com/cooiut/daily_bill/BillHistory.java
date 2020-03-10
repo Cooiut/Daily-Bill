@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class BillHistory extends AppCompatActivity {
 
@@ -32,6 +35,9 @@ public class BillHistory extends AppCompatActivity {
     private DatabaseReference myRefSpend, myRefIncome;
     private Spinner spinner_sort, spinner_sequence;
 
+    private int selectedButton, selectedSec, selectedSort;
+
+    private ItemTouchHelper itemTouchHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +46,10 @@ public class BillHistory extends AppCompatActivity {
         setTitle("Bill History");
 
         Bundle extras = getIntent().getExtras();
-        income = extras.getParcelableArrayList("income");
-        spend = extras.getParcelableArrayList("spend");
+        if (extras != null) {
+            income = extras.getParcelableArrayList("income");
+            spend = extras.getParcelableArrayList("spend");
+        }
         myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
         myRefIncome = FirebaseDatabase.getInstance().getReference("income");
 
@@ -50,6 +58,10 @@ public class BillHistory extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        adapter = new BillViewAdapter(BillHistory.this, spend, "spend");
+        recyclerView.setAdapter(adapter);
+//        itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter));
+//        itemTouchHelper.attachToRecyclerView(recyclerView);
 
         spinner_sort = findViewById(R.id.spinner_sort);
         spinner_sequence = findViewById(R.id.spinner_sequence);
@@ -58,8 +70,14 @@ public class BillHistory extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
-                    // TODO: 3/10/2020
+                    case 0:
+                        selectedSort = 0;
+                        break;
+                    case 1:
+                        selectedSort = 1;
+                        break;
                 }
+                sort();
             }
 
             @Override
@@ -72,9 +90,20 @@ public class BillHistory extends AppCompatActivity {
 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
                 switch (position) {
-                    // TODO: 3/10/2020
+                    case 0:
+                    case 2:
+                        selectedSec = 2;
+                        break;
+                    case 1:
+                        selectedSec = 1;
+                        break;
+                    case 3:
+                        selectedSec = 3;
+                        break;
                 }
+                sort();
             }
 
             @Override
@@ -88,20 +117,101 @@ public class BillHistory extends AppCompatActivity {
         boolean checked = ((RadioButton) view).isChecked();
         switch (view.getId()) {
             case R.id.buttonSpend:
-                if (checked) {
-                    adapter = new BillViewAdapter(BillHistory.this, spend, "spend");
-                    recyclerView.setAdapter(adapter);
-                }
+                if (checked)
+                    selectedButton = 0;
                 break;
             case R.id.buttonIncome:
-                if (checked) {
-                    adapter = new BillViewAdapter(BillHistory.this, income, "income");
-                    recyclerView.setAdapter(adapter);
-                }
-                    break;
+                if (checked)
+                    selectedButton = 1;
+                break;
         }
+        sort();
     }
 
-    // TODO: 3/10/2020 Create comparator for Bills
-    // Example at https://www.callicoder.com/java-comparable-comparator/
+    // TODO: 3/10/2020 Add recyclerVier click listener
+
+
+    public void sort() {
+        Comparator<Bills> dateComparator = new Comparator<Bills>() {
+            @Override
+            public int compare(Bills o1, Bills o2) {
+                if (o1.getYear() < o2.getYear())
+                    return -1;
+                else if (o1.getYear() > o2.getYear())
+                    return 1;
+                else {
+                    if (o1.getMonth() < o2.getMonth())
+                        return -1;
+                    else if (o1.getMonth() > o2.getMonth())
+                        return 1;
+                    else {
+                        return Integer.compare(o1.getDay(), o2.getDay());
+                    }
+                }
+            }
+        };
+
+        Comparator<Bills> amountCompartor = new Comparator<Bills>() {
+            @Override
+            public int compare(Bills o1, Bills o2) {
+                double amount1 = o1.getCost() * o1.getQuantity();
+                double amount2 = o2.getCost() * o2.getQuantity();
+                if (amount1 < amount2)
+                    return -1;
+                else if (amount1 > amount2)
+                    return 1;
+                return 0;
+            }
+        };
+
+        Comparator<Bills> nameCompartor = new Comparator<Bills>() {
+            @Override
+            public int compare(Bills o1, Bills o2) {
+                return o1.getItem().compareToIgnoreCase(o2.getItem());
+            }
+        };
+
+        switch (selectedButton) {
+            case 0:
+                switch (selectedSec) {
+                    case 1:
+                        Collections.sort(spend, dateComparator);
+                        break;
+                    case 2:
+                        Collections.sort(spend, amountCompartor);
+                        break;
+                    case 3:
+                        Collections.sort(spend, nameCompartor);
+                        break;
+                }
+                if (selectedSort == 0)
+                    Collections.reverse(spend);
+                adapter = new BillViewAdapter(BillHistory.this, spend, "spend");
+                recyclerView.setAdapter(adapter);
+//                itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter));
+//                itemTouchHelper.attachToRecyclerView(recyclerView);
+                break;
+            case 1:
+                switch (selectedSec) {
+                    case 1:
+                        Collections.sort(income, dateComparator);
+                        break;
+                    case 2:
+                        Collections.sort(income, amountCompartor);
+                        break;
+                    case 3:
+                        Collections.sort(income, nameCompartor);
+                        break;
+                }
+                if (selectedSort == 0)
+                    Collections.reverse(income);
+                adapter = new BillViewAdapter(BillHistory.this, income, "income");
+                recyclerView.setAdapter(adapter);
+//                itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter));
+//                itemTouchHelper.attachToRecyclerView(recyclerView);
+                break;
+        }
+
+    }
+
 }

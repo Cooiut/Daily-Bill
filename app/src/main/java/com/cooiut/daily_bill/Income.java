@@ -89,7 +89,7 @@ public class Income extends AppCompatActivity {
 
         DatePicker datePicker = findViewById(R.id.datePicker1);
         year = datePicker.getYear();
-        month = datePicker.getMonth();
+        month = datePicker.getMonth() + 1;
         day = datePicker.getDayOfMonth();
 
         key = myRefIncome.push().getKey();
