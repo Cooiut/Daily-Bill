@@ -28,6 +28,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Bills> spend, income;
+    private double balance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -128,9 +128,6 @@ public class BillHistory extends AppCompatActivity {
         sort();
     }
 
-    // TODO: 3/10/2020 Add recyclerVier click listener
-
-
     public void sort() {
         Comparator<Bills> dateComparator = new Comparator<Bills>() {
             @Override

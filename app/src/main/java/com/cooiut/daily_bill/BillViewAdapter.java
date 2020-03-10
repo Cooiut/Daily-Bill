@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -77,6 +78,18 @@ public class BillViewAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     // TODO: 3/10/2020
+                }
+            });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // TODO: 3/10/2020
+                    // getAdapterPosition()
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Choose a category to add a bill");
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
                 }
             });
         }
