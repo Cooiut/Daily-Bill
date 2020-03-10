@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020. Cooiut & Jason
+ * All right reserved.
+ * This code is for UCI I&CS 45J project use only,
+ * Please do not copy or duplicate.
+ */
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
@@ -41,4 +48,5 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.1.0'
+    implementation 'org.jetbrains:annotations-java5:15.0'
 }

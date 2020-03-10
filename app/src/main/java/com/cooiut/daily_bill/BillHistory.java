@@ -89,4 +89,6 @@ public class BillHistory extends AppCompatActivity {
                     break;
         }
     }
+
+    // TODO: 3/10/2020 Create comparator for Bills
 }

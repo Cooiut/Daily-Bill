@@ -10,7 +10,6 @@ package com.cooiut.daily_bill;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -22,21 +21,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Spend extends AppCompatActivity {
 
     private ArrayList<Bills> spend;
-    private Spinner spinner;
-    private List<String> stringList;
-    private ArrayAdapter<String> arrayAdapter;
     private String category = "";
-    private DatePicker datePicker;
-
-    private EditText editTextCost;
-    private EditText editTextName;
-    private EditText editTextQuantity;
-    private EditText editTextDescription;
 
     private DatabaseReference myRefSpend;
 
@@ -51,7 +40,9 @@ public class Spend extends AppCompatActivity {
         setTitle("Income");
 
         Bundle extras = getIntent().getExtras();
-        spend = extras.getParcelableArrayList("spend");
+        if (extras != null) {
+            spend = extras.getParcelableArrayList("spend");
+        }
 
         myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
 
@@ -66,8 +57,7 @@ public class Spend extends AppCompatActivity {
         });
 
 
-
-        spinner = findViewById(R.id.spinnerCategory);
+        Spinner spinner = findViewById(R.id.spinnerCategory);
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 
             @Override
@@ -85,10 +75,10 @@ public class Spend extends AppCompatActivity {
     }
 
     public void add() {
-        editTextCost = findViewById(R.id.editTextCost);
-        editTextName = findViewById(R.id.editTextName);
-        editTextQuantity = findViewById(R.id.editTextQuantity);
-        editTextDescription = findViewById(R.id.editTextDescription);
+        EditText editTextCost = findViewById(R.id.editTextCost);
+        EditText editTextName = findViewById(R.id.editTextName);
+        EditText editTextQuantity = findViewById(R.id.editTextQuantity);
+        EditText editTextDescription = findViewById(R.id.editTextDescription);
 
         String item, key, description;
         double quantity, cost;
@@ -105,7 +95,7 @@ public class Spend extends AppCompatActivity {
         else
             cost = Double.parseDouble(editTextCost.getText().toString());
 
-        datePicker = findViewById(R.id.datePicker1);
+        DatePicker datePicker = findViewById(R.id.datePicker1);
         year = datePicker.getYear();
         month = datePicker.getMonth();
         day = datePicker.getDayOfMonth();
@@ -113,6 +103,8 @@ public class Spend extends AppCompatActivity {
         key = myRefSpend.push().getKey();
         Bills bills = new Bills(key, category, item, quantity, cost, description, year, month, day);
         spend.add(bills);
-        myRefSpend.child(key).setValue(bills);
+        if (key != null) {
+            myRefSpend.child(key).setValue(bills);
+        }
     }
 }

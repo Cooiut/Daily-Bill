@@ -28,17 +28,16 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Bills> spend, income;
-    private DatabaseReference myRefSpend, myRefIncome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
-        myRefIncome = FirebaseDatabase.getInstance().getReference("Income");
-        spend = new ArrayList<Bills>();
-        income = new ArrayList<Bills>();
+        DatabaseReference myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
+        DatabaseReference myRefIncome = FirebaseDatabase.getInstance().getReference("Income");
+        spend = new ArrayList<>();
+        income = new ArrayList<>();
 
         myRefSpend.addValueEventListener(new ValueEventListener() {
             @Override

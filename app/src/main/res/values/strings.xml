@@ -38,7 +38,7 @@
     </string-array>
 
     <string-array name="sequence">
-        <item>Sort by...</item>
+        <item>Sort by…</item>
         <item>Date</item>
         <item>Amount</item>
         <item>Name</item>

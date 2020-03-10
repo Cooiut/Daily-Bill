@@ -1,3 +1,10 @@
+/*
+ * Copyright (c) 2020. Cooiut & Jason
+ * All right reserved.
+ * This code is for UCI I&CS 45J project use only,
+ * Please do not copy or duplicate.
+ */
+
 package com.cooiut.daily_bill;
 
 import android.os.Parcel;
@@ -11,8 +18,8 @@ public class Bills implements Parcelable {
     public Bills() {
     }
 
-    public Bills(String key, String category, String item, double quantity,
-                 String description, int year, int month, int day) {
+    Bills(String key, String category, String item, double quantity,
+          String description, int year, int month, int day) {
         this.key = key;
         this.category = category;
         this.item = item;
@@ -24,8 +31,8 @@ public class Bills implements Parcelable {
         this.day = day;
     }
 
-    public Bills(String key, String category, String item, double quantity, double cost,
-        String description, int year, int month, int day) {
+    Bills(String key, String category, String item, double quantity, double cost,
+          String description, int year, int month, int day) {
             this.key = key;
         this.category = category;
         this.item = item;
@@ -37,7 +44,7 @@ public class Bills implements Parcelable {
         this.day = day;
     }
 
-    protected Bills(Parcel in) {
+    private Bills(Parcel in) {
         item = in.readString();
         category = in.readString();
         key = in.readString();
