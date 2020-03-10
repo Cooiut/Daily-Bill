@@ -12,8 +12,8 @@ public class Bills implements Parcelable {
     }
 
     public Bills(String key, String category, String item, double quantity, double cost,
-                 String description, int year, int month, int day) {
-        this.key = key;
+        String description, int year, int month, int day) {
+            this.key = key;
         this.category = category;
         this.item = item;
         this.quantity = quantity;

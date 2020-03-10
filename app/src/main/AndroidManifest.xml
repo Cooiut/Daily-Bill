@@ -10,8 +10,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".BillHistory"></activity>
-        <activity android:name=".Income" />
-        <activity android:name=".Spend" />
+        <activity
+            android:name=".Income"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".Spend"
+            android:parentActivityName=".MainActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
