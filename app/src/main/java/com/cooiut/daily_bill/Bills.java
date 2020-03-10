@@ -18,13 +18,13 @@ public class Bills implements Parcelable {
     public Bills() {
     }
 
-    Bills(String key, String category, String item, double quantity,
+    Bills(String key, String category, String item, double cost,
           String description, int year, int month, int day) {
         this.key = key;
         this.category = category;
         this.item = item;
-        this.quantity = quantity;
-        this.cost = 0;
+        this.quantity = 1;
+        this.cost = cost;
         this.description = description;
         this.year = year;
         this.month = month;

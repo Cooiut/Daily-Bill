@@ -42,7 +42,7 @@ public class Income extends AppCompatActivity {
             income = extras.getParcelableArrayList("income");
         }
 
-        myRefIncome = FirebaseDatabase.getInstance().getReference("Income");
+        myRefIncome = FirebaseDatabase.getInstance().getReference("income");
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {

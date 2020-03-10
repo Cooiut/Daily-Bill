@@ -17,6 +17,7 @@
     <string name="add_new_spend">Add New Spend</string>
     <string name="spend">Spend</string>
     <string name="income">Income</string>
+    <string name="edit">Edit</string>
 
     <string-array name="spending">
         <item>Food</item>

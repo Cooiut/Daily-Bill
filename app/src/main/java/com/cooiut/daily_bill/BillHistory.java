@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +27,7 @@ public class BillHistory extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager layoutManager;
+
     private ArrayList<Bills> spend, income;
     private DatabaseReference myRefSpend, myRefIncome;
     private Spinner spinner_sort, spinner_sequence;
@@ -41,7 +43,13 @@ public class BillHistory extends AppCompatActivity {
         income = extras.getParcelableArrayList("income");
         spend = extras.getParcelableArrayList("spend");
         myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
-        myRefIncome = FirebaseDatabase.getInstance().getReference("Income");
+        myRefIncome = FirebaseDatabase.getInstance().getReference("income");
+
+        recyclerView = findViewById(R.id.recyclerViewList);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(layoutManager);
+
 
         spinner_sort = findViewById(R.id.spinner_sort);
         spinner_sequence = findViewById(R.id.spinner_sequence);
@@ -80,15 +88,20 @@ public class BillHistory extends AppCompatActivity {
         boolean checked = ((RadioButton) view).isChecked();
         switch (view.getId()) {
             case R.id.buttonSpend:
-                if (checked)
-                    // TODO: 3/10/2020 Change recyclerView to spend
-                    break;
+                if (checked) {
+                    adapter = new BillViewAdapter(BillHistory.this, spend, "spend");
+                    recyclerView.setAdapter(adapter);
+                }
+                break;
             case R.id.buttonIncome:
-                if (checked)
-                    // TODO: 3/10/2020 Change recyclerView to income
+                if (checked) {
+                    adapter = new BillViewAdapter(BillHistory.this, income, "income");
+                    recyclerView.setAdapter(adapter);
+                }
                     break;
         }
     }
 
     // TODO: 3/10/2020 Create comparator for Bills
+    // Example at https://www.callicoder.com/java-comparable-comparator/
 }

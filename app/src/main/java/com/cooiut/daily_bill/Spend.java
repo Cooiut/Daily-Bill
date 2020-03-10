@@ -37,7 +37,7 @@ public class Spend extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_spend);
-        setTitle("Income");
+        setTitle("Spend");
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -51,7 +51,6 @@ public class Spend extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 add();
-//                myRefIncome.child("abc").setValue("abc");
                 finish();
             }
         });

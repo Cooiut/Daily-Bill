@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         DatabaseReference myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
-        DatabaseReference myRefIncome = FirebaseDatabase.getInstance().getReference("Income");
+        DatabaseReference myRefIncome = FirebaseDatabase.getInstance().getReference("income");
         spend = new ArrayList<>();
         income = new ArrayList<>();
 
@@ -120,5 +120,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 }

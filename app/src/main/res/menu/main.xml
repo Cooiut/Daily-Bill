@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2020. Cooiut & Jason
+  ~ All right reserved.
+  ~ This code is for UCI I&CS 45J project use only,
+  ~ Please do not copy or duplicate.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="quit"
+        android:title="Quit" />
+</menu>
