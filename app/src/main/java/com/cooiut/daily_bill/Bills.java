@@ -13,6 +13,17 @@ import android.os.Parcelable;
 import androidx.annotation.NonNull;
 
 public class Bills implements Parcelable {
+    public static final Creator<Bills> CREATOR = new Creator<Bills>() {
+        @Override
+        public Bills createFromParcel(Parcel in) {
+            return new Bills(in);
+        }
+
+        @Override
+        public Bills[] newArray(int size) {
+            return new Bills[size];
+        }
+    };
     private String item, category, key, description;
     private double quantity, cost;
     private int year, month, day;
@@ -21,7 +32,7 @@ public class Bills implements Parcelable {
     }
 
     public Bills(String key, String category, String item, double cost,
-          String description, int year, int month, int day) {
+                 String description, int year, int month, int day) {
         this.key = key;
         this.category = category;
         this.item = item;
@@ -34,7 +45,7 @@ public class Bills implements Parcelable {
     }
 
     public Bills(String key, String category, String item, double quantity, double cost,
-          String description, int year, int month, int day) {
+                 String description, int year, int month, int day) {
         this.key = key;
         this.category = category;
         this.item = item;
@@ -58,18 +69,6 @@ public class Bills implements Parcelable {
         day = in.readInt();
     }
 
-    public static final Creator<Bills> CREATOR = new Creator<Bills>() {
-        @Override
-        public Bills createFromParcel(Parcel in) {
-            return new Bills(in);
-        }
-
-        @Override
-        public Bills[] newArray(int size) {
-            return new Bills[size];
-        }
-    };
-
     public String getKey() {
         return key;
     }
@@ -78,12 +77,12 @@ public class Bills implements Parcelable {
         this.key = key;
     }
 
-    public String getStore() {
+    public String getCategory() {
         return category;
     }
 
-    public void setStore(String store) {
-        this.category = store;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getItem() {
@@ -165,7 +164,8 @@ public class Bills implements Parcelable {
     @NonNull
     @Override
     public String toString() {
-        return "Item: " + item + " (Category: " + category + ")" + "\n\n" +
+        return "Item: " + item + "\n\n" +
+                "Category: " + category + "\n\n" +
                 "Cost: $" + cost + ", Quantity: " + quantity + "\n\n" +
                 "Description: " + description + "\n\n" +
                 "Date: " + day + "/" + month + "/" + year;

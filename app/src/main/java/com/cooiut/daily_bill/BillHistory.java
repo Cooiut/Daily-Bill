@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,10 +39,13 @@ public class BillHistory extends AppCompatActivity {
     private ArrayList<Bills> spend, income;
     private DatabaseReference myRefSpend, myRefIncome;
     private Spinner spinner_sort, spinner_sequence;
+    private TextView textView;
 
     private int selectedButton, selectedSec, selectedSort;
 
     private ItemTouchHelper itemTouchHelper;
+
+    private double totalSpend, totalIncome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +101,8 @@ public class BillHistory extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
+        textView = findViewById(R.id.textView);
+
         adapter = new BillViewAdapter(BillHistory.this, spend, "spend");
         recyclerView.setAdapter(adapter);
         itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter, "spend"));
@@ -150,6 +156,8 @@ public class BillHistory extends AppCompatActivity {
 
             }
         });
+
+        sort();
     }
 
     public void onRadioButtonClicked(View view) {
@@ -207,6 +215,16 @@ public class BillHistory extends AppCompatActivity {
             }
         };
 
+        totalSpend = 0;
+        for (Bills b : spend) {
+            totalSpend += b.getQuantity() * b.getCost();
+        }
+        totalIncome = 0;
+        for (Bills b : income) {
+            totalIncome += b.getQuantity() * b.getCost();
+        }
+
+
         switch (selectedButton) {
             case 0:
                 switch (selectedSec) {
@@ -227,6 +245,9 @@ public class BillHistory extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
                 itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter, "spend"));
                 itemTouchHelper.attachToRecyclerView(recyclerView);
+
+                textView.setText(String.format("%s%s", getString(R.string.totalSpend), totalSpend));
+
                 break;
             case 1:
                 switch (selectedSec) {
@@ -247,7 +268,12 @@ public class BillHistory extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
                 itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter, "income"));
                 itemTouchHelper.attachToRecyclerView(recyclerView);
+
+                textView.setText(String.format("%s%s", getString(R.string.totalIncome), totalIncome));
+
                 break;
         }
+
+        // TODO: 3/10/2020
     }
 }

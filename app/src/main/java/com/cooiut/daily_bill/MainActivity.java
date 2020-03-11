@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -28,7 +29,9 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Bills> spend, income;
-    private double balance;
+    private double balance, totalSpend, totalIncome;
+
+    private TextView textViewBalance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +43,22 @@ public class MainActivity extends AppCompatActivity {
         spend = new ArrayList<>();
         income = new ArrayList<>();
 
+        textViewBalance = findViewById(R.id.textViewBalance);
+
         myRefSpend.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 spend.clear();
+                totalSpend = 0;
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Bills s = ds.getValue(Bills.class);
-                    spend.add(s);
+                    Bills b = ds.getValue(Bills.class);
+                    spend.add(b);
+                    if (b != null) {
+                        totalSpend += b.getQuantity() * b.getCost();
+                    }
                 }
+                balance = totalIncome - totalSpend;
+                textViewBalance.setText(String.format("%s%s", getString(R.string.balance), balance));
             }
 
             @Override
@@ -60,10 +71,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 income.clear();
+                totalIncome = 0;
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Bills s = ds.getValue(Bills.class);
-                    income.add(s);
+                    Bills b = ds.getValue(Bills.class);
+                    income.add(b);
+                    if (b != null) {
+                        totalIncome += b.getQuantity() * b.getCost();
+                    }
                 }
+                balance = totalIncome - totalSpend;
+                textViewBalance.setText(String.format("%s%s", getString(R.string.balance), balance));
             }
 
             @Override

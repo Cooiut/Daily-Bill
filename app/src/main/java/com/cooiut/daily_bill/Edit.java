@@ -5,13 +5,6 @@
  * Please do not copy or duplicate.
  */
 
-/*
- * Copyright (c) 2020. Cooiut & Jason
- * All right reserved.
- * This code is for UCI I&CS 45J project use only,
- * Please do not copy or duplicate.
- */
-
 package com.cooiut.daily_bill;
 
 import android.os.Bundle;
@@ -22,11 +15,9 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -103,14 +94,14 @@ public class Edit extends AppCompatActivity {
             for (String s : cateList1) {
                 list.add(s);
             }
-            spinnerIndex = list.indexOf(b.getStore());
+            spinnerIndex = list.indexOf(b.getCategory());
             cateList = cateList1;
             adapter = ArrayAdapter.createFromResource(this, R.array.spending, android.R.layout.simple_spinner_item);
         } else if (type.equals("income")) {
             for (String s : cateList2) {
                 list.add(s);
             }
-            spinnerIndex = list.indexOf(b.getStore());
+            spinnerIndex = list.indexOf(b.getCategory());
             cateList = cateList2;
             adapter = ArrayAdapter.createFromResource(this, R.array.income, android.R.layout.simple_spinner_item);
         }
