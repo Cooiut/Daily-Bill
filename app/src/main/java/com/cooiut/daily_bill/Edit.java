@@ -105,7 +105,7 @@ public class Edit extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                category = "Miscellaneous";
             }
         });
 

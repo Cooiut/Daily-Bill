@@ -66,7 +66,7 @@ public class Spend extends AppCompatActivity {
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                category = "Miscellaneous";
             }
         });
 

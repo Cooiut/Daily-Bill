@@ -1,11 +1,38 @@
+/*
+ * Copyright (c) 2020. Cooiut & Jason
+ * All right reserved.
+ * This code is for UCI I&CS 45J project use only,
+ * Please do not copy or duplicate.
+ */
+
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+//android {
+//    buildTypes {
+//        release {
+//            // Enables code shrinking, obfuscation, and optimization for only
+//            // your project's release build type.
+//            minifyEnabled true
+//
+//            // Enables resource shrinking, which is performed by the
+//            // Android Gradle plugin.
+////            shrinkResources true
+//
+//            // Includes the default ProGuard rules files that are packaged with
+//            // the Android Gradle plugin. To learn more, go to the section about
+//            // R8 configuration files.
+//            proguardFiles getDefaultProguardFile(
+//                    'proguard-android-optimize.txt'),
+//                    'proguard-rules.pro'
+//        }
+//    }
+//}
 
 buildscript {
-    
+
     repositories {
         google()
         jcenter()
-        
+
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.1'
@@ -21,9 +48,10 @@ allprojects {
     repositories {
         google()
         jcenter()
-        
+
     }
 }
+
 
 task clean(type: Delete) {
     delete rootProject.buildDir
