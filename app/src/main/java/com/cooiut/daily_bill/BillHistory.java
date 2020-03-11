@@ -13,13 +13,17 @@ import android.widget.AdapterView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,6 +56,41 @@ public class BillHistory extends AppCompatActivity {
         }
         myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
         myRefIncome = FirebaseDatabase.getInstance().getReference("income");
+
+        myRefSpend.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                spend.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Bills s = ds.getValue(Bills.class);
+                    spend.add(s);
+                    sort();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        myRefIncome.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                income.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Bills s = ds.getValue(Bills.class);
+                    income.add(s);
+                    sort();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         recyclerView = findViewById(R.id.recyclerViewList);
         recyclerView.setHasFixedSize(true);

@@ -22,11 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -41,23 +38,6 @@ public class BillViewAdapter extends RecyclerView.Adapter {
         this.list = list;
         this.bill = bill;
         myRef = FirebaseDatabase.getInstance().getReference(bill);
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                BillViewAdapter.this.list.clear();
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Bills s = ds.getValue(Bills.class);
-                    BillViewAdapter.this.list.add(s);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
     }
 
     public void deleteItem(int position) {
