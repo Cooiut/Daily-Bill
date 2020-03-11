@@ -20,7 +20,7 @@ public class Bills implements Parcelable {
     public Bills() {
     }
 
-    Bills(String key, String category, String item, double cost,
+    public Bills(String key, String category, String item, double cost,
           String description, int year, int month, int day) {
         this.key = key;
         this.category = category;
@@ -33,7 +33,7 @@ public class Bills implements Parcelable {
         this.day = day;
     }
 
-    Bills(String key, String category, String item, double quantity, double cost,
+    public Bills(String key, String category, String item, double quantity, double cost,
           String description, int year, int month, int day) {
         this.key = key;
         this.category = category;
@@ -70,7 +70,7 @@ public class Bills implements Parcelable {
         }
     };
 
-    String getKey() {
+    public String getKey() {
         return key;
     }
 
@@ -138,7 +138,7 @@ public class Bills implements Parcelable {
     }
 
 
-    int getYear() {
+    public int getYear() {
         return year;
     }
 
@@ -146,7 +146,7 @@ public class Bills implements Parcelable {
         this.year = year;
     }
 
-    int getMonth() {
+    public int getMonth() {
         return month;
     }
 
@@ -154,7 +154,7 @@ public class Bills implements Parcelable {
         this.month = month;
     }
 
-    int getDay() {
+    public int getDay() {
         return day;
     }
 
