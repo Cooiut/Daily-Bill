@@ -11,19 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 public class SwipeToDelete extends ItemTouchHelper.SimpleCallback {
     private BillViewAdapter adapter;
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
 
     public SwipeToDelete(BillViewAdapter adapter, String bill) {
         super(0, ItemTouchHelper.LEFT);
         this.adapter = adapter;
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference(bill);
     }
 
     @Override
