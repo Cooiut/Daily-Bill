@@ -34,18 +34,13 @@ public class BillHistory extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
 
     private ArrayList<Bills> spend, income;
-    private DatabaseReference myRefSpend, myRefIncome;
-    private Spinner spinner_sort, spinner_sequence;
     private TextView textView;
 
     private int selectedButton, selectedSec, selectedSort;
 
     private ItemTouchHelper itemTouchHelper;
-
-    private double totalSpend, totalIncome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,8 +53,8 @@ public class BillHistory extends AppCompatActivity {
             income = extras.getParcelableArrayList("income");
             spend = extras.getParcelableArrayList("spend");
         }
-        myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
-        myRefIncome = FirebaseDatabase.getInstance().getReference("income");
+        DatabaseReference myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
+        DatabaseReference myRefIncome = FirebaseDatabase.getInstance().getReference("income");
 
         myRefSpend.addValueEventListener(new ValueEventListener() {
             @Override
@@ -98,7 +93,7 @@ public class BillHistory extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerViewList);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
 
         textView = findViewById(R.id.textView);
@@ -108,8 +103,8 @@ public class BillHistory extends AppCompatActivity {
         itemTouchHelper = new ItemTouchHelper(new SwipeToDelete((BillViewAdapter) adapter, "spend"));
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        spinner_sort = findViewById(R.id.spinner_sort);
-        spinner_sequence = findViewById(R.id.spinner_sequence);
+        Spinner spinner_sort = findViewById(R.id.spinner_sort);
+        Spinner spinner_sequence = findViewById(R.id.spinner_sequence);
         spinner_sort.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 
             @Override
@@ -215,11 +210,11 @@ public class BillHistory extends AppCompatActivity {
             }
         };
 
-        totalSpend = 0;
+        double totalSpend = 0;
         for (Bills b : spend) {
             totalSpend += b.getQuantity() * b.getCost();
         }
-        totalIncome = 0;
+        double totalIncome = 0;
         for (Bills b : income) {
             totalIncome += b.getQuantity() * b.getCost();
         }
@@ -273,7 +268,5 @@ public class BillHistory extends AppCompatActivity {
 
                 break;
         }
-
-        // TODO: 3/10/2020
     }
 }
