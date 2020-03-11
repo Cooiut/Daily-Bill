@@ -17,6 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Setup Database
         DatabaseReference myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
         DatabaseReference myRefIncome = FirebaseDatabase.getInstance().getReference("income");
         spend = new ArrayList<>();
@@ -45,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         textViewBalance = findViewById(R.id.textViewBalance);
 
+        // Database Listener for spending
         myRefSpend.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -59,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 balance = totalIncome - totalSpend;
                 textViewBalance.setText(String.format("%s%s", getString(R.string.balance), balance));
+                updateChart();
             }
 
             @Override
@@ -67,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Database Listener for income
         myRefIncome.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -81,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 balance = totalIncome - totalSpend;
                 textViewBalance.setText(String.format("%s%s", getString(R.string.balance), balance));
+                updateChart();
             }
 
             @Override
@@ -89,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        // Fab for add new bill
         FloatingActionButton fab = findViewById(R.id.fab_add);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Fab for changing to Bill history activity
         FloatingActionButton fab2 = findViewById(R.id.bill_history);
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,5 +151,48 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    public void updateChart() {
+        // Chart 1: Spending
+        PieChart chartSpending = findViewById(R.id.chartSpending);
+        List<PieEntry> entrySpending = new ArrayList<>();
+        for (Bills b : spend) {
+            entrySpending.add(new PieEntry((float) (b.getCost() * b.getQuantity()), b.getItem()));
+        }
+        PieDataSet setSpending = new PieDataSet(entrySpending, "");
+        setSpending.setColors(ColorTemplate.MATERIAL_COLORS);
+        PieData dataSpending = new PieData(setSpending);
+        chartSpending.setCenterText("Total Spending\n$" + totalSpend);
+//        Description descriptionSpending = new Description();
+//        descriptionSpending.setText("Total Spending: " + totalSpend);
+//        descriptionSpending.setTextSize(13f);
+//        descriptionSpending.setPosition(370f, 70f);
+        chartSpending.setDescription(null);
+        chartSpending.setHoleRadius(40f);
+        chartSpending.setTransparentCircleRadius(45f);
+        chartSpending.setData(dataSpending);
+        chartSpending.invalidate();
+
+
+        //Chart 2: Income
+        PieChart chartIncome = findViewById(R.id.chartIncome);
+        List<PieEntry> entryIncome = new ArrayList<>();
+        for (Bills b : income) {
+            entryIncome.add(new PieEntry((float) (b.getCost() * b.getQuantity()), b.getItem()));
+        }
+        PieDataSet setIncome = new PieDataSet(entryIncome, "");
+        setIncome.setColors(ColorTemplate.MATERIAL_COLORS);
+        PieData dataIncome = new PieData(setIncome);
+        chartIncome.setCenterText("Total Income\n$" + totalIncome);
+//        Description descriptionIncome = new Description();
+//        descriptionIncome.setText("Total Income: " + totalIncome);
+//        descriptionIncome.setTextSize(13f);
+//        descriptionIncome.setPosition(370f, 800f);
+        chartIncome.setDescription(null);
+        chartIncome.setHoleRadius(40f);
+        chartIncome.setTransparentCircleRadius(45f);
+        chartIncome.setData(dataIncome);
+        chartIncome.invalidate();
     }
 }

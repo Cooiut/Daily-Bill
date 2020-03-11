@@ -22,7 +22,7 @@
     <string name="update">Update</string>
     <string name="totalSpend">Total Spend: </string>
     <string name="totalIncome">Total Income: </string>
-    <string name="balance">"Balance: "</string>
+    <string name="balance">"Overall Balance: "</string>
 
     <string-array name="spending">
         <item>Food</item>

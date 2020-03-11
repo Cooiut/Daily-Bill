@@ -53,7 +53,6 @@ public class Income extends AppCompatActivity {
             }
         });
 
-
         Spinner spinner = findViewById(R.id.spinnerCategory1);
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 
@@ -67,8 +66,6 @@ public class Income extends AppCompatActivity {
                 category = "Miscellaneous";
             }
         });
-
-
     }
 
     public void add() {
