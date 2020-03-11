@@ -99,10 +99,10 @@
         android:id="@+id/buttonUpdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="115dp"
         android:text="@string/update"
         app:layout_constraintStart_toEndOf="@+id/datePicker1"
-        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton1" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextCost1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

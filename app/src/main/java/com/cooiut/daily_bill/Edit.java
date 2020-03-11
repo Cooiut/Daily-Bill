@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Edit extends AppCompatActivity {
@@ -47,12 +48,13 @@ public class Edit extends AppCompatActivity {
         setTitle("Edit Details");
 
         Bundle extras = getIntent().getExtras();
-        b = extras.getParcelable("Bill");
-        position = extras.getInt("int");
-        key = extras.getString("key");
-        type = extras.getString("type");
-        System.out.println(type + "               typeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-
+        if (extras != null) {
+            b = extras.getParcelable("Bill");
+            position = extras.getInt("int");
+            key = extras.getString("key");
+            type = extras.getString("type");
+            spend = extras.getParcelableArrayList("arrayList");
+        }
         EditText editTextCost = findViewById(R.id.editTextCost1);
         EditText editTextName = findViewById(R.id.editTextName1);
         EditText editTextQuantity = findViewById(R.id.editTextQuantity1);
@@ -61,12 +63,10 @@ public class Edit extends AppCompatActivity {
         DatePicker datePicker = findViewById(R.id.datePicker1);
         datePicker.init(b.getYear(), b.getMonth() - 1, b.getDay(), null);
 
-        editTextCost.setText(Double.toString(b.getCost()));
-        System.out.println(b.getDay() + "1111111111111111111111111111");
-        System.out.println(b.getItem() + "22222222222222222222222222222");
+        editTextCost.setText(String.format("%s", b.getCost()));
         editTextName.setText(b.getItem());
         editTextDescription.setText(b.getDescription());
-        editTextQuantity.setText(Double.toString(b.getQuantity()));
+        editTextQuantity.setText(String.format("%s", b.getQuantity()));
 
 
         Button buttonEdit = findViewById(R.id.buttonUpdate);
@@ -79,28 +79,18 @@ public class Edit extends AppCompatActivity {
         });
 
 
-        System.out.println(b.getDay());
-        if (extras != null) {
-            spend = extras.getParcelableArrayList("arrayList");
-        }
-
-
         myRefSpend = FirebaseDatabase.getInstance().getReference(type);
 
         Spinner spinner = findViewById(R.id.spinnerCategory1);
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
 
         if (type.equals("spend")) {
-            for (String s : cateList1) {
-                list.add(s);
-            }
+            Collections.addAll(list, cateList1);
             spinnerIndex = list.indexOf(b.getCategory());
             cateList = cateList1;
             adapter = ArrayAdapter.createFromResource(this, R.array.spending, android.R.layout.simple_spinner_item);
         } else if (type.equals("income")) {
-            for (String s : cateList2) {
-                list.add(s);
-            }
+            Collections.addAll(list, cateList2);
             spinnerIndex = list.indexOf(b.getCategory());
             cateList = cateList2;
             adapter = ArrayAdapter.createFromResource(this, R.array.income, android.R.layout.simple_spinner_item);
