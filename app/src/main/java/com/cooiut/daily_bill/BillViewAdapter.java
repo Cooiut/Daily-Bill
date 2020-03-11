@@ -12,7 +12,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,27 +22,46 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public class BillViewAdapter extends RecyclerView.Adapter {
-    private ArrayList list;
+    private ArrayList<Bills> list;
     private Context context;
     private DatabaseReference myRef;
     private String bill;
 
-    BillViewAdapter(Context context, ArrayList list, String bill) {
+    public BillViewAdapter(Context context, ArrayList<Bills> list, String bill) {
         this.context = context;
         this.list = list;
         this.bill = bill;
-        System.out.println(bill + "bbbbbbbbbbbbbbbbbbbbbb");
         myRef = FirebaseDatabase.getInstance().getReference(bill);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                BillViewAdapter.this.list.clear();
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Bills s = ds.getValue(Bills.class);
+                    BillViewAdapter.this.list.add(s);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
-    void deleteItem(int position) {
-        Bills b = (Bills) list.get(position);
+    public void deleteItem(int position) {
+        Bills b = list.get(position);
         myRef.child(b.getKey()).removeValue();
         list.remove(position);
         notifyDataSetChanged();
@@ -59,9 +77,9 @@ public class BillViewAdapter extends RecyclerView.Adapter {
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((BillViewHolder) holder).date.setText("" + ((Bills) list.get(position)).getMonth() + "/" + ((Bills) list.get(position)).getDay() + "/" + ((Bills) list.get(position)).getYear());
-        ((BillViewHolder) holder).name.setText(((Bills) list.get(position)).getItem());
-        ((BillViewHolder) holder).cost.setText("$" + (((Bills) list.get(position)).getCost() * ((Bills) list.get(position)).getQuantity()));
+        ((BillViewHolder) holder).date.setText("" + (list.get(position)).getMonth() + "/" + (list.get(position)).getDay() + "/" + (list.get(position)).getYear());
+        ((BillViewHolder) holder).name.setText((list.get(position)).getItem());
+        ((BillViewHolder) holder).cost.setText("$" + ((list.get(position)).getCost() * (list.get(position)).getQuantity()));
 
     }
 
@@ -74,7 +92,6 @@ public class BillViewAdapter extends RecyclerView.Adapter {
     public class BillViewHolder extends RecyclerView.ViewHolder {
         TextView date, name, cost;
         Button edit;
-        int type;
 
         BillViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -88,9 +105,7 @@ public class BillViewAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
-                    System.out.println(position + "zzzzzzzzzzzzzzzzzzzz");
-                    Bills b = (Bills) list.get(position);
-                    System.out.println(b.getDay());
+                    Bills b = list.get(position);
                     Intent intent = new Intent(context, Edit.class);
                     Bundle bundle = new Bundle();
                     bundle.putParcelable("Bill", b);
@@ -100,9 +115,7 @@ public class BillViewAdapter extends RecyclerView.Adapter {
                     bundle.putParcelableArrayList("arrayList", list);
                     intent.putExtras(bundle);
                     context.startActivity(intent);
-                    notifyDataSetChanged();
-                    // TODO: 3/10/2020  
-                }   
+                }
             });
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -111,7 +124,7 @@ public class BillViewAdapter extends RecyclerView.Adapter {
                     final AlertDialog.Builder builder = new AlertDialog.Builder(context);
                     builder.setTitle("Detail");
                     int position = getAdapterPosition();
-                    Bills b = (Bills) list.get(position);
+                    Bills b = list.get(position);
 
                     builder.setMessage(b.toString());
                     builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
