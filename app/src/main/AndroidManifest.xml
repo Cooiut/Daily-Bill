@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2020. Cooiut & Jason
-  ~ All right reserved.
-  ~ This code is for UCI I&CS 45J project use only,
-  ~ Please do not copy or duplicate.
-  -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cooiut.daily_bill">
 
@@ -17,14 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Edit"
+            android:parentActivityName=".BillHistory"></activity>
+
+        <activity
             android:name=".BillHistory"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Income"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Spend"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

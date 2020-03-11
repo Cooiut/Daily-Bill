@@ -10,6 +10,8 @@ package com.cooiut.daily_bill;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +83,11 @@ public class BillViewAdapter extends RecyclerView.Adapter {
                 public void onClick(View v) {
                     int position = getAdapterPosition();
                     Bills b = (Bills) list.get(position);
+                    Intent intent = new Intent(context, Edit.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("Bills", b);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
                     // TODO: 3/10/2020  
                 }   
             });
