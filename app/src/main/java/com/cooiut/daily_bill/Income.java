@@ -44,7 +44,7 @@ public class Income extends AppCompatActivity {
 
         myRefIncome = FirebaseDatabase.getInstance().getReference("income");
 
-        FloatingActionButton fab = findViewById(R.id.floatingActionButton);
+        FloatingActionButton fab = findViewById(R.id.floatingActionButton1);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,7 +54,7 @@ public class Income extends AppCompatActivity {
         });
 
 
-        Spinner spinner = findViewById(R.id.spinnerCategory);
+        Spinner spinner = findViewById(R.id.spinnerCategory1);
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
 
             @Override
@@ -72,9 +72,9 @@ public class Income extends AppCompatActivity {
     }
 
     public void add() {
-        EditText editTextName = findViewById(R.id.editTextName);
-        EditText editTextQuantity = findViewById(R.id.editTextQuantity);
-        EditText editTextDescription = findViewById(R.id.editTextDescription);
+        EditText editTextName = findViewById(R.id.editTextName1);
+        EditText editTextQuantity = findViewById(R.id.editTextQuantity1);
+        EditText editTextDescription = findViewById(R.id.editTextDescription1);
 
         String item, key, description;
         double quantity;

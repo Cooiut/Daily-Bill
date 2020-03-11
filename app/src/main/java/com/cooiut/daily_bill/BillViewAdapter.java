@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +32,13 @@ public class BillViewAdapter extends RecyclerView.Adapter {
     private ArrayList list;
     private Context context;
     private DatabaseReference myRef;
+    private String bill;
 
     BillViewAdapter(Context context, ArrayList list, String bill) {
         this.context = context;
         this.list = list;
+        this.bill = bill;
+        System.out.println(bill + "bbbbbbbbbbbbbbbbbbbbbb");
         myRef = FirebaseDatabase.getInstance().getReference(bill);
     }
 
@@ -70,6 +74,7 @@ public class BillViewAdapter extends RecyclerView.Adapter {
     public class BillViewHolder extends RecyclerView.ViewHolder {
         TextView date, name, cost;
         Button edit;
+        int type;
 
         BillViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -78,16 +83,24 @@ public class BillViewAdapter extends RecyclerView.Adapter {
             cost = itemView.findViewById(R.id.textViewQuantity);
             edit = itemView.findViewById(R.id.buttonEdit);
 
+
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
+                    System.out.println(position + "zzzzzzzzzzzzzzzzzzzz");
                     Bills b = (Bills) list.get(position);
+                    System.out.println(b.getDay());
                     Intent intent = new Intent(context, Edit.class);
                     Bundle bundle = new Bundle();
-                    bundle.putParcelable("Bills", b);
+                    bundle.putParcelable("Bill", b);
+                    bundle.putInt("int", position);
+                    bundle.putString("type", bill);
+                    bundle.putString("key", b.getKey());
+                    bundle.putParcelableArrayList("arrayList", list);
                     intent.putExtras(bundle);
                     context.startActivity(intent);
+                    notifyDataSetChanged();
                     // TODO: 3/10/2020  
                 }   
             });

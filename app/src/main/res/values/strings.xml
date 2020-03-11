@@ -19,6 +19,7 @@
     <string name="income">Income</string>
     <string name="edit">Edit</string>
     <string name="ok">OK</string>
+    <string name="update">Update</string>
 
     <string-array name="spending">
         <item>Food</item>

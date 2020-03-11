@@ -14,7 +14,7 @@
     tools:context=".Income">
 
     <EditText
-        android:id="@+id/editTextName"
+        android:id="@+id/editTextName1"
         android:layout_width="225dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
@@ -24,22 +24,22 @@
         android:hint="@string/name"
         android:importantForAutofill="no"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerCategory"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerCategory1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinnerCategory"
+        android:id="@+id/spinnerCategory1"
         android:layout_width="225dp"
         android:layout_height="50dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="19dp"
         android:entries="@array/income"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextName1" />
 
     <EditText
-        android:id="@+id/editTextQuantity"
+        android:id="@+id/editTextQuantity1"
         android:layout_width="95dp"
         android:layout_height="50dp"
         android:layout_marginStart="39dp"
@@ -50,7 +50,7 @@
         android:importantForAutofill="no"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editTextName"
+        app:layout_constraintStart_toEndOf="@+id/editTextName1"
         app:layout_constraintTop_toTopOf="parent" />
 
     <DatePicker
@@ -62,10 +62,10 @@
         android:calendarViewShown="false"
         android:datePickerMode="spinner"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
+        app:layout_constraintTop_toBottomOf="@+id/spinnerCategory1" />
 
     <EditText
-        android:id="@+id/editTextDescription"
+        android:id="@+id/editTextDescription1"
         android:layout_width="369dp"
         android:layout_height="178dp"
         android:layout_marginStart="17dp"
@@ -81,7 +81,7 @@
         app:layout_constraintTop_toBottomOf="@+id/datePicker1" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/floatingActionButton1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="39dp"
@@ -91,7 +91,7 @@
         android:focusable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/datePicker1"
-        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity"
+        app:layout_constraintTop_toBottomOf="@+id/editTextQuantity1"
         app:srcCompat="@android:drawable/ic_menu_add" />
 
 
