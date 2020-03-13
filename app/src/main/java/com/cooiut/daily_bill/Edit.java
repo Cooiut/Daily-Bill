@@ -18,6 +18,7 @@ import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -78,8 +79,9 @@ public class Edit extends AppCompatActivity {
             }
         });
 
+        String userKey = FirebaseAuth.getInstance().getCurrentUser().getEmail().replace('.','_');
 
-        myRefSpend = FirebaseDatabase.getInstance().getReference(type);
+        myRefSpend = FirebaseDatabase.getInstance().getReference(userKey).child(type);
 
         Spinner spinner = findViewById(R.id.spinnerCategory1);
         List<String> list = new ArrayList<>();

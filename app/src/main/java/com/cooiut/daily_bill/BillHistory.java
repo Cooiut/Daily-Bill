@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,8 +54,10 @@ public class BillHistory extends AppCompatActivity {
             income = extras.getParcelableArrayList("income");
             spend = extras.getParcelableArrayList("spend");
         }
-        DatabaseReference myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
-        DatabaseReference myRefIncome = FirebaseDatabase.getInstance().getReference("income");
+
+        String userKey = FirebaseAuth.getInstance().getCurrentUser().getEmail().replace('.','_');
+        DatabaseReference myRefSpend = FirebaseDatabase.getInstance().getReference(userKey).child("spend");
+        DatabaseReference myRefIncome = FirebaseDatabase.getInstance().getReference(userKey).child("income");
 
         myRefSpend.addValueEventListener(new ValueEventListener() {
             @Override
