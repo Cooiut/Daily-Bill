@@ -17,11 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
-        <activity
             android:name=".Edit"
-            android:parentActivityName=".BillHistory" />
+            android:parentActivityName=".BillHistory"></activity>
+
         <activity
             android:name=".BillHistory"
             android:parentActivityName=".MainActivity" />
