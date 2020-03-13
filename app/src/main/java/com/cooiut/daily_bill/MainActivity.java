@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         // Setup Database
         DatabaseReference myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
         DatabaseReference myRefIncome = FirebaseDatabase.getInstance().getReference("income");
