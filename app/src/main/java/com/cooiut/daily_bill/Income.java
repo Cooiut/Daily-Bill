@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -42,7 +43,8 @@ public class Income extends AppCompatActivity {
             income = extras.getParcelableArrayList("income");
         }
 
-        myRefIncome = FirebaseDatabase.getInstance().getReference("income");
+        String userKey = FirebaseAuth.getInstance().getCurrentUser().getEmail().replace('.','_');
+        myRefIncome = FirebaseDatabase.getInstance().getReference(userKey).child("income");
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton1);
         fab.setOnClickListener(new View.OnClickListener() {
