@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        setContentView(R.layout.activity_main);
 
         // Setup Database
         DatabaseReference myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
