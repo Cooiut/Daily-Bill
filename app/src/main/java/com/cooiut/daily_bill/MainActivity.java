@@ -10,6 +10,7 @@ package com.cooiut.daily_bill;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -23,6 +24,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,11 +45,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
+        String userKey = FirebaseAuth.getInstance().getCurrentUser().getEmail().replace('.','_');
+
         // Setup Database
-        DatabaseReference myRefSpend = FirebaseDatabase.getInstance().getReference("spend");
-        DatabaseReference myRefIncome = FirebaseDatabase.getInstance().getReference("income");
+        DatabaseReference myRefSpend = FirebaseDatabase.getInstance().getReference(userKey).child("spend");
+        DatabaseReference myRefIncome = FirebaseDatabase.getInstance().getReference(userKey).child("income");
         spend = new ArrayList<>();
         income = new ArrayList<>();
 

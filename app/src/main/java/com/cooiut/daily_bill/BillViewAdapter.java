@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,7 +38,8 @@ public class BillViewAdapter extends RecyclerView.Adapter {
         this.context = context;
         this.list = list;
         this.bill = bill;
-        myRef = FirebaseDatabase.getInstance().getReference(bill);
+        String userKey = FirebaseAuth.getInstance().getCurrentUser().getEmail().replace('.','_');
+        myRef = FirebaseDatabase.getInstance().getReference(userKey).child(bill);
     }
 
     public void deleteItem(int position) {
