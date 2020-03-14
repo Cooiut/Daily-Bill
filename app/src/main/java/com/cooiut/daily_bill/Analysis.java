@@ -159,8 +159,10 @@ public class Analysis extends AppCompatActivity {
         LineData dataSpend = new LineData(dataSetSpend);
 
         ((LineChart) findViewById(R.id.chartIncome)).setData(dataIncome);
+        ((LineChart) findViewById(R.id.chartIncome)).setDescription(null);
         findViewById(R.id.chartIncome).invalidate();
         ((LineChart) findViewById(R.id.chartSpend)).setData(dataSpend);
+        ((LineChart) findViewById(R.id.chartSpend)).setDescription(null);
         findViewById(R.id.chartSpend).invalidate();
     }
 
