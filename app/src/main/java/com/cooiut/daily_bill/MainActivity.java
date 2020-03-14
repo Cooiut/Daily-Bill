@@ -213,6 +213,10 @@ public class MainActivity extends AppCompatActivity {
         to_bh();
     }
 
+    public void to_Analysis(MenuItem item) {
+        to_an();
+    }
+
     public void to_bh() {
         Intent intent = new Intent(MainActivity.this, BillHistory.class);
         Bundle bundle = new Bundle();
@@ -237,5 +241,14 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
 
+    }
+
+    public void to_an() {
+        Intent intent = new Intent(MainActivity.this, Analysis.class);
+        Bundle b = new Bundle();
+        b.putParcelableArrayList("spend", spend);
+        b.putParcelableArrayList("income", income);
+        intent.putExtras(b);
+        startActivity(intent);
     }
 }

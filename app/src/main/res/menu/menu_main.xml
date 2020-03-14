@@ -8,11 +8,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/spinner_main"
-        android:title="Select Month"
-        app:actionViewClass="android.widget.Spinner"
-        app:showAsAction="always" />
-    <item
         android:id="@+id/to_bill_history"
         android:onClick="to_bill_history"
         android:title="@string/bill_history" />
@@ -24,4 +19,8 @@
         android:id="@+id/to_new_spend"
         android:onClick="to_new_spend"
         android:title="@string/new_spend" />
+    <item
+        android:id="@+id/to_analysis"
+        android:onClick="to_Analysis"
+        android:title="@string/monthly_analysis" />
 </menu>
