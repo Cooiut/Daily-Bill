@@ -70,4 +70,5 @@
     <string name="new_spend">New Spend</string>
     <string name="monthly_analysis">Monthly Analysis</string>
     <string name="select_month">Select Month</string>
+    <string name="done">Done</string>
 </resources>

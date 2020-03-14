@@ -35,10 +35,12 @@
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".Income"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeNoAction" />
         <activity
             android:name=".Spend"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppThemeNoAction" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppThemeNoAction" />

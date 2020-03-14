@@ -8,6 +8,8 @@
 package com.cooiut.daily_bill;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
@@ -15,8 +17,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -43,17 +45,22 @@ public class Income extends AppCompatActivity {
             income = extras.getParcelableArrayList("income");
         }
 
-        String userKey = FirebaseAuth.getInstance().getCurrentUser().getEmail().replace('.','_');
+        String userKey = FirebaseAuth.getInstance().getCurrentUser().getEmail().replace('.', '_');
         myRefIncome = FirebaseDatabase.getInstance().getReference(userKey).child("income");
 
-        FloatingActionButton fab = findViewById(R.id.floatingActionButton1);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                add();
-                finish();
-            }
-        });
+        Toolbar toolbarIncome = findViewById(R.id.toolbarIncome);
+        setSupportActionBar(toolbarIncome);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+//        FloatingActionButton fab = findViewById(R.id.floatingActionButton1);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                add();
+//                finish();
+//            }
+//        });
 
         Spinner spinner = findViewById(R.id.spinnerCategory1);
         spinner.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {
@@ -97,5 +104,16 @@ public class Income extends AppCompatActivity {
         if (key != null) {
             myRefIncome.child(key).setValue(bills);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.done, menu);
+        return true;
+    }
+
+    public void done(MenuItem item) {
+        add();
+        finish();
     }
 }
