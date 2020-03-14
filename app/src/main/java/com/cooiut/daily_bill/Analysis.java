@@ -9,9 +9,15 @@ package com.cooiut.daily_bill;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.MenuItemCompat;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +26,8 @@ import java.util.Comparator;
 public class Analysis extends AppCompatActivity {
 
     private ArrayList<Bills> spend, income;
+
+    private Spinner spinner;
 
     private class Date {
         private int month;
@@ -50,6 +58,7 @@ public class Analysis extends AppCompatActivity {
         setSupportActionBar(toolbarAnalysis);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -97,5 +106,17 @@ public class Analysis extends AppCompatActivity {
         }
 
         return res;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_analysis, menu);
+        MenuItem item = menu.findItem(R.id.spinner_analysis);
+        spinner = (Spinner) MenuItemCompat.getActionView(item);
+        String[] spinnerArray = {"a", "b", "c"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, spinnerArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        return true;
     }
 }

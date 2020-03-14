@@ -8,10 +8,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/spinner"
-        android:title="Select Month"
+        android:id="@+id/spinner_analysis"
+        android:title="@string/select_month"
         app:actionViewClass="android.widget.Spinner"
         app:showAsAction="always" />
-
-    <!--todo 返回-->
 </menu>
