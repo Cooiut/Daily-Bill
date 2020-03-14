@@ -240,7 +240,6 @@ public class MainActivity extends AppCompatActivity {
         bundle.putParcelableArrayList("spend", spend);
         intent.putExtras(bundle);
         startActivity(intent);
-
     }
 
     public void to_an() {
