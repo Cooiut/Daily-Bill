@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.MenuItemCompat;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.service.autofill.Dataset;
 import android.util.Log;
@@ -149,21 +150,43 @@ public class Analysis extends AppCompatActivity {
     public void drawTransaction() {
         int[] monthDay = {0, 31, (spinnerChoice.year % 4 == 0 && spinnerChoice.year % 100 != 0 || spinnerChoice.year % 400 == 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
         double incomeAmount[] = new double[monthDay[spinnerChoice.month] + 1];
-        Entry[] incomeData = new Entry[monthDay[spinnerChoice.month] + 1];
         for (Bills b : income) {
             if (b.getYear() == spinnerChoice.year && b.getMonth() == spinnerChoice.month) {
                 incomeAmount[b.getDay()] += b.getQuantity() * b.getCost();
             }
         }
 
-        ((LineChart)findViewById(R.id.chartOverall)).setData(new LineData());
+        ArrayList<Entry> entryListIncome = new ArrayList<>();
         for(int i = 1; i < incomeAmount.length; i++){
-            if( ((LineChart)findViewById(R.id.chartOverall)).getLineData()!=null) {
-                ((LineChart) findViewById(R.id.chartOverall)).getLineData().addEntry(new Entry(i, (float) incomeAmount[i]), 1);
+            entryListIncome.add(new Entry(i, (float) incomeAmount[i]));
+        }
+
+        LineDataSet dataSetIncome = new LineDataSet(entryListIncome, "Income");
+        dataSetIncome.setColor(Color.BLUE);
+
+        LineData dataIncome = new LineData(dataSetIncome);
+
+        double spendAmount[] = new double[monthDay[spinnerChoice.month] + 1];
+        for (Bills b : spend) {
+            if (b.getYear() == spinnerChoice.year && b.getMonth() == spinnerChoice.month) {
+                spendAmount[b.getDay()] += b.getQuantity() * b.getCost();
             }
         }
-        ((LineChart)findViewById(R.id.chartOverall)).notifyDataSetChanged();
-        ((LineChart)findViewById(R.id.chartOverall)).invalidate();
 
+
+        ArrayList<Entry> entryListSpend = new ArrayList<>();
+        for(int i = 1; i < incomeAmount.length; i++){
+            entryListSpend.add(new Entry(i, (float) spendAmount[i]));
+        }
+
+        LineDataSet dataSetSpend = new LineDataSet(entryListSpend, "Spend");
+        dataSetSpend.setColor(Color.RED);
+
+        LineData ldata = new LineData();
+        ldata.addDataSet(dataSetIncome);
+        ldata.addDataSet(dataSetSpend);
+
+        ((LineChart)findViewById(R.id.chartOverall)).setData(ldata);
+        findViewById(R.id.chartOverall).invalidate();
     }
 }
