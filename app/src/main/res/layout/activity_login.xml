@@ -17,6 +17,9 @@
         android:id="@+id/toolbarLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
@@ -70,4 +73,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btnSignUp"
         app:layout_constraintTop_toBottomOf="@+id/txtPswd" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
