@@ -201,4 +201,13 @@ public class MainActivity extends AppCompatActivity {
         chartIncome.setData(dataIncome);
         chartIncome.invalidate();
     }
+
+    public void analysis(View view) {
+        Intent intent = new Intent(MainActivity.this, Analysis.class);
+        Bundle b = new Bundle();
+        b.putParcelableArrayList("spend", spend);
+        b.putParcelableArrayList("income", income);
+        intent.putExtras(b);
+        startActivity(intent);
+    }
 }
