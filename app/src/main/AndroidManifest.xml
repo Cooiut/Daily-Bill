@@ -17,6 +17,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Analysis"
+            android:parentActivityName=".MainActivity"
             android:theme="@style/AppThemeNoAction" />
         <activity
             android:name=".Login"

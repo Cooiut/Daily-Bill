@@ -10,7 +10,6 @@ package com.cooiut.daily_bill;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -150,6 +149,14 @@ public class MainActivity extends AppCompatActivity {
                 to_bh();
             }
         });
+
+        FloatingActionButton fab3 = findViewById(R.id.fab_analysis);
+        fab3.setOnClickListener((new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                to_an();
+            }
+        }));
     }
 
     public void updateChart() {
@@ -163,10 +170,6 @@ public class MainActivity extends AppCompatActivity {
         setSpending.setColors(ColorTemplate.MATERIAL_COLORS);
         PieData dataSpending = new PieData(setSpending);
         chartSpending.setCenterText("Total Spending\n$" + totalSpend);
-//        Description descriptionSpending = new Description();
-//        descriptionSpending.setText("Total Spending: " + totalSpend);
-//        descriptionSpending.setTextSize(13f);
-//        descriptionSpending.setPosition(370f, 70f);
         chartSpending.setDescription(null);
         chartSpending.setHoleRadius(40f);
         chartSpending.setTransparentCircleRadius(45f);
@@ -184,10 +187,6 @@ public class MainActivity extends AppCompatActivity {
         setIncome.setColors(ColorTemplate.MATERIAL_COLORS);
         PieData dataIncome = new PieData(setIncome);
         chartIncome.setCenterText("Total Income\n$" + totalIncome);
-//        Description descriptionIncome = new Description();
-//        descriptionIncome.setText("Total Income: " + totalIncome);
-//        descriptionIncome.setTextSize(13f);
-//        descriptionIncome.setPosition(370f, 800f);
         chartIncome.setDescription(null);
         chartIncome.setHoleRadius(40f);
         chartIncome.setTransparentCircleRadius(45f);
