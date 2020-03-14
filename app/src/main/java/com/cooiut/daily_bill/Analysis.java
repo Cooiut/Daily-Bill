@@ -140,15 +140,12 @@ public class Analysis extends AppCompatActivity {
         LineDataSet dataSetIncome = new LineDataSet(entryListIncome, "Income");
         dataSetIncome.setColor(Color.BLUE);
 
-        LineData dataIncome = new LineData(dataSetIncome);
-
         double[] spendAmount = new double[monthDay[spinnerChoice.month] + 1];
         for (Bills b : spend) {
             if (b.getYear() == spinnerChoice.year && b.getMonth() == spinnerChoice.month) {
                 spendAmount[b.getDay()] += b.getQuantity() * b.getCost();
             }
         }
-
 
         ArrayList<Entry> entryListSpend = new ArrayList<>();
         for (int i = 1; i < incomeAmount.length; i++) {
@@ -158,12 +155,13 @@ public class Analysis extends AppCompatActivity {
         LineDataSet dataSetSpend = new LineDataSet(entryListSpend, "Spend");
         dataSetSpend.setColor(Color.RED);
 
-        LineData ldata = new LineData();
-        ldata.addDataSet(dataSetIncome);
-        ldata.addDataSet(dataSetSpend);
+        LineData dataIncome = new LineData(dataSetIncome);
+        LineData dataSpend = new LineData(dataSetSpend);
 
-        ((LineChart) findViewById(R.id.chartOverall)).setData(ldata);
-        findViewById(R.id.chartOverall).invalidate();
+        ((LineChart) findViewById(R.id.chartIncome)).setData(dataIncome);
+        findViewById(R.id.chartIncome).invalidate();
+        ((LineChart) findViewById(R.id.chartSpend)).setData(dataSpend);
+        findViewById(R.id.chartSpend).invalidate();
     }
 
     class Date {
