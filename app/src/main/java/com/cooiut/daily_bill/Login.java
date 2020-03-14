@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020. Cooiut & Jason & Haphaistos2333
+ * Copyright (c) 2020. Cooiut & Jason
  * All right reserved.
  * This code is for UCI I&CS 45J project use only,
  * Please do not copy or duplicate.
@@ -9,11 +9,13 @@ package com.cooiut.daily_bill;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +37,9 @@ public class Login extends AppCompatActivity {
         setTitle("Login");
 
         mAuth = FirebaseAuth.getInstance();
+
+        Toolbar toolbarLogin = findViewById(R.id.toolbarLogin);
+        setSupportActionBar(toolbarLogin);
 
         findViewById(R.id.btnSignUp).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,6 +98,13 @@ public class Login extends AppCompatActivity {
                         });
             }
         });
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login, menu);
+        return true;
     }
 
 

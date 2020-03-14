@@ -13,6 +13,12 @@
     android:layout_height="match_parent"
     tools:context=".Login">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/txtEmail"
         android:layout_width="213dp"
@@ -25,6 +31,7 @@
         app:layout_constraintBottom_toTopOf="@+id/txtPswd"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:importantForAutofill="no"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
