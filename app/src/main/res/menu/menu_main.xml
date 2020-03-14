@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2020. Cooiut & Jason
+  ~ All right reserved.
+  ~ This code is for UCI I&CS 45J project use only,
+  ~ Please do not copy or duplicate.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/spinner_main"
+        android:title="Select Month"
+        app:actionViewClass="android.widget.Spinner"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/to_bill_history"
+        android:onClick="to_bill_history"
+        android:title="@string/bill_history" />
+    <item
+        android:id="@+id/to_new_income"
+        android:onClick="to_new_income"
+        android:title="@string/new_income" />
+    <item
+        android:id="@+id/to_new_spend"
+        android:onClick="to_new_spend"
+        android:title="@string/new_spend" />
+</menu>

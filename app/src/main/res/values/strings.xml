@@ -65,4 +65,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="test_account_login">"Test account login"</string>
     <string name="exit">"Exit</string>
+    <string name="bill_history">Bill History</string>
+    <string name="new_income">New Income</string>
+    <string name="new_spend">New Spend</string>
 </resources>
