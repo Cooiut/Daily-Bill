@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,6 +99,7 @@ public class Login extends AppCompatActivity {
                         });
             }
         });
+
     }
 
 
@@ -107,5 +109,21 @@ public class Login extends AppCompatActivity {
         return true;
     }
 
+    public void defaultLogin(MenuItem item) {
+        mAuth.signInWithEmailAndPassword("test@gmail.com", "password")
+                .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        startActivity(
+                                new Intent(Login.this, MainActivity.class)
+                                        .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK)
+                        );
+                    }
+                });
+    }
 
+    public void exit(MenuItem item) {
+        finish();
+        System.exit(0);
+    }
 }
